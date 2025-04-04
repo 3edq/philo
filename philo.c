@@ -8,27 +8,20 @@ int	start_simulation(t_philo *philos, t_data *data)
 	data->start_time = get_time_in_ms();
 	i = 0;
 	while (i < data->num_philos)
-	{
-		philos[i].last_meal_time = data->start_time;
-		i++;
-	}
+		philos[i++].last_meal_time = data->start_time;
 	i = 0;
 	while (i < data->num_philos)
-	{
 		if (pthread_create(&philos[i].thread, NULL, philosopher_routine,
 				&philos[i]) != 0)
 			return (ERROR);
-		i++;
-	}
+		else
+			i++;
 	if (pthread_create(&monitor, NULL, monitor_routine, philos) != 0)
 		return (ERROR);
 	i = 0;
 	while (i < data->num_philos)
-	{
-		if (pthread_join(philos[i].thread, NULL) != 0)
+		if (pthread_join(philos[i++].thread, NULL) != 0)
 			return (ERROR);
-		i++;
-	}
 	if (pthread_join(monitor, NULL) != 0)
 		return (ERROR);
 	return (SUCCESS);
