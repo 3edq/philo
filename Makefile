@@ -1,7 +1,7 @@
 NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRCS = philo.c init.c utils.c routine.c monitor.c cleanup.c
+SRCS = philo.c init.c utils.c routine.c monitor.c
 OBJS = $(SRCS:.c=.o)
 HEADERS = philo.h
 

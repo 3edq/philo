@@ -27,19 +27,18 @@ int	init_data(t_data *data, int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 		return (ERROR);
-	
 	data->num_philos = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
-	data->meals_required = (argc == 6) ? ft_atoi(argv[5]) : -1;
+	data->meals_required = -1;
+	if (argc == 6)
+		data->meals_required = ft_atoi(argv[5]);
 	data->simulation_end = false;
-	
-	if (data->num_philos <= 0 || data->time_to_die <= 0 ||
-		data->time_to_eat <= 0 || data->time_to_sleep <= 0 ||
-		(argc == 6 && data->meals_required <= 0))
+	if (data->num_philos <= 0 || data->time_to_die <= 0
+		|| data->time_to_eat <= 0 || data->time_to_sleep <= 0 || (argc == 6
+			&& data->meals_required <= 0))
 		return (ERROR);
-	
 	return (SUCCESS);
 }
 
@@ -50,7 +49,6 @@ int	init_mutexes(t_data *data)
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->num_philos);
 	if (!data->forks)
 		return (ERROR);
-	
 	i = 0;
 	while (i < data->num_philos)
 	{
@@ -58,12 +56,10 @@ int	init_mutexes(t_data *data)
 			return (ERROR);
 		i++;
 	}
-	
 	if (pthread_mutex_init(&data->print_lock, NULL) != 0)
 		return (ERROR);
 	if (pthread_mutex_init(&data->end_lock, NULL) != 0)
 		return (ERROR);
-	
 	return (SUCCESS);
 }
 
@@ -74,7 +70,6 @@ int	init_philos(t_philo **philos, t_data *data)
 	*philos = malloc(sizeof(t_philo) * data->num_philos);
 	if (!*philos)
 		return (ERROR);
-	
 	i = 0;
 	while (i < data->num_philos)
 	{
@@ -89,6 +84,5 @@ int	init_philos(t_philo **philos, t_data *data)
 			return (ERROR);
 		i++;
 	}
-	
 	return (SUCCESS);
-} 
+}

@@ -39,30 +39,23 @@ typedef struct s_philo
 	t_data			*data;
 } t_philo;
 
-// init.c
 int		init_data(t_data *data, int argc, char **argv);
 int		init_mutexes(t_data *data);
 int		init_philos(t_philo **philos, t_data *data);
 
-// utils.c
 int		ft_atoi(const char *str);
 long	get_time_in_ms(void);
 void	print_status(t_philo *philo, char *status);
 void	precise_sleep(int ms);
 bool	simulation_should_end(t_data *data);
 
-// routine.c
 void	*philosopher_routine(void *arg);
 void	philo_eat(t_philo *philo);
 void	philo_sleep(t_philo *philo);
 void	philo_think(t_philo *philo);
 
-// monitor.c
 void	*monitor_routine(void *arg);
 bool	check_philo_death(t_philo *philo);
-bool	check_all_ate_enough(t_philo *philos, t_data *data);
-
-// cleanup.c
-void	cleanup(t_philo *philos, t_data *data);
+bool	check_all_eat(t_philo *philos, t_data *data);
 
 #endif 
